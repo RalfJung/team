@@ -714,10 +714,20 @@ fn validate_github_teams(data: &Data, errors: &mut Vec<String>) {
 
 /// Ensure there are no misspelled GitHub account names
 async fn validate_github_usernames(data: &Data, github: &GitHubApi, errors: &mut Vec<String>) {
+    let active_members = match data.active_members() {
+        Ok(m) => m,
+        Err(err) => {
+            errors.push(format!("couldn't get active members: {err}"));
+            return;
+        }
+    };
+
     let people = data
         .people()
+        .filter(|p| active_members.contains(p.github()))
         .map(|p| (p.github_id(), p))
         .collect::<HashMap<_, _>>();
+
     match github
         .usernames(&people.keys().cloned().collect::<Vec<_>>())
         .await
