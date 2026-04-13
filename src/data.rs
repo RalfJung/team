@@ -183,6 +183,8 @@ impl Data {
         self.people.values()
     }
 
+    /// Return the usernames of all active members, i.e. all members of non-alumni teams.
+    /// It also includes members of teams that don't have a `[[github]]` section.
     pub(crate) fn active_members(&self) -> Result<HashSet<&str>, Error> {
         let mut active = HashSet::new();
         for team in self.teams.values().filter(|team| !team.is_alumni_team()) {
