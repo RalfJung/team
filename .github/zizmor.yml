@@ -1,0 +1,11 @@
+rules:
+  dangerous-triggers:
+    ignore:
+      - dry-run.yml
+  secrets-outside-env:
+    ignore:
+      - dry-run.yml
+  concurrency-limits:
+    ignore:
+      - check-untracked-repos.yml
+      - zizmor.yml
