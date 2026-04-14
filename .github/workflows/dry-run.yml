@@ -102,12 +102,13 @@ jobs:
           cat comment.txt
 
       - name: Extract PR number
+        id: extract-pr
         run: |
           # We read the PR number that is stored in the uploaded archive
           # and check that it is an integer (as the workflow could upload whatever it wants).
           UNSANITIZED_PR=`cat team-api/pr.txt`
           if [[ ${UNSANITIZED_PR} =~ ^[0-9]+$ ]]; then
-            echo "PR_NUMBER=${UNSANITIZED_PR}" >> $GITHUB_ENV
+            echo "pr_number=${UNSANITIZED_PR}" >> $GITHUB_OUTPUT
           else
             echo "Invalid PR number passed: ${UNSANITIZED_PR}"
             exit 1
@@ -116,8 +117,8 @@ jobs:
       - name: Send comment
         env:
           GH_TOKEN: ${{ github.token }}
+          PR: ${{ steps.extract-pr.outputs.pr_number }}
         run: |
-          PR=${PR_NUMBER}
           echo "Pull request ${PR}"
           gh pr comment ${PR} --repo rust-lang/team --body-file comment.txt \
             --edit-last \
