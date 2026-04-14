@@ -3,7 +3,7 @@ top-level = true
 
 [people]
 leads = ["Manishearth"]
-members = ["Manishearth", "GuillaumeGomez", "oli-obk", "rbtcollins", "ehuss", "calebcartwright"]
+members = ["Manishearth", "GuillaumeGomez", "rbtcollins", "ehuss", "calebcartwright"]
 alumni = [
     "alexcrichton",
     "brson",
@@ -16,6 +16,7 @@ alumni = [
     "matklad",
     "michaelwoerister",
     "nrc",
+    "oli-obk",
     "sophiajt",
     "steveklabnik",
     "withoutboats",
